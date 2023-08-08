@@ -1,0 +1,47 @@
+#注册中心的名字
+spring:
+  application:
+    name: eureka-server
+#服务端口
+server:
+  port: 8091
+#注册中心相关配置
+eureka:
+  instance:
+    # true：使用ip地址的形式来定义注册中心地址
+#    prefer-ip-address: true
+    # false：使用主机名形式来定义注册中心地址，defaultZone是以域名的方式向注册中心注册
+    prefer-ip-address: false
+    hostname: localhost
+  server:
+    # 设置eureka是否启动自我保护，true：开启eureka的自我保护 false：关闭eureka的自我保护
+    # 如果关闭eureka的自我保护，则不可用的服务会被及时剔除掉
+    enable-self-preservation: false
+    # eureka的阈值（默认值）是0.85(当注册在eureka中的正常服务占比低于85%时会开启eureka的自我保护)
+    # 也就是说Eureka Server在运行期间会去统计心跳失败比例在15分钟之内是否低于85%，
+    #   如果低于85%，Eureka Server会将这些实例保护起来，让这些实例不会过期
+    renewal-percent-threshold: 0.85
+    # 剔除服务的时间间隔毫秒数（单位：毫秒）  扫描失效服务的时间间隔（默认是60*1000 即60秒）
+    eviction-interval-timer-in-ms: 1000
+    # 是否从readonly（只读缓存）中读取实例（默认是true）
+    use-read-only-response-cache: false
+    # 设置readwrite和readonly两级缓存的同步时间间隔
+    response-cache-update-interval-ms: 1000
+  client:
+    # 不将自己注册到注册中心
+#    register-with-eureka: false
+    # 搭建高可用注册中心集群，应该自己也注册到注册中心
+    register-with-eureka: true
+    # 因为自己是注册中心，因此不用检索服务信息
+#    fetch-registry: false
+    # 搭建高可用注册中心集群，应该检索其他服务信息(默认为true)
+    fetch-registry: true
+    # 暴露注册中心的地址
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      # , http://localhost:8092/eureka/, http://localhost:8093/eureka/
+  # 关闭注册中心清理无效节点的日志
+logging:
+  level:
+    com.netflix: warn
+

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ribbon-consumer
+server:
+  port: 9000
+eureka:
+  client:
+    service-url:
+      # 指定服务注册中心地址
+      defaultZone: http://peer1:8092/eureka/, http://peer2:8093/eureka/

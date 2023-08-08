@@ -1,0 +1,37 @@
+spring:
+  application:
+    # 服务名
+    name: hello-service
+server:
+  port: 8096
+eureka:
+  client:
+    # 检索其他服务信息(默认为true)
+    # fetch-registry: true
+    # 更改缓存清单更新时间(默认30s)
+    registry-fetch-interval-seconds: 40
+    # 混村清单
+    service-url:
+      # 指定服务注册中心地址
+      defaultZone: http://peer1:8092/eureka/, http://peer2:8093/eureka/
+#自定义属性
+book:
+  name: SpringCloudTest
+  author: moku
+  desc: ${book.author} write <${book.name}>
+# 随机值${random}
+com:
+  moku:
+    producer:
+      blog:
+        # 1. 随机字符串
+        value: ${random.value}
+        # 2. 随机int
+        number: ${random.int}
+        # 3. 随机long
+        bigNumber: ${random.long}
+        # 4. 10以内的随机数
+        randomNumberIn10: ${random.int(10)}
+        # 5. 10~20的随机数
+        randomNumberBetween10And20: ${random.int(10,20)}
+
