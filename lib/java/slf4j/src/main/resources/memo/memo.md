@@ -37,4 +37,4 @@ SpringBoot默认使用logback-classic日志框架，该框架包含在spring-boo
 
 #### 简单日志外观和绑定
 
-![SLF4J.png](images/SLF4J.png)
+![SLF4J.png](../images/SLF4J.png)
